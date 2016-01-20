@@ -1,0 +1,66 @@
+{
+  "containerDefinitions": [
+    {
+      "volumesFrom": [],
+      "memory": 5120,
+      "extraHosts": null,
+      "dnsServers": null,
+      "disableNetworking": null,
+      "dnsSearchDomains": null,
+      "portMappings": [
+        {
+          "hostPort": 9200,
+          "containerPort": 9200,
+          "protocol": "tcp"
+        },
+        {
+          "hostPort": 9300,
+          "containerPort": 9300,
+          "protocol": "tcp"
+        }
+      ],
+      "hostname": null,
+      "essential": true,
+      "entryPoint": null,
+      "mountPoints": [
+        {
+          "containerPath": "/usr/share/elasticsearch/data",
+          "sourceVolume": "vol00",
+          "readOnly": null
+        }
+      ],
+      "name": "elasticsearch",
+      "ulimits": null,
+      "dockerSecurityOptions": null,
+      "environment": [
+        {
+          "name": "ES_HEAP_SIZE",
+          "value": "4g"
+        }
+      ],
+      "links": null,
+      "workingDirectory": null,
+      "readonlyRootFilesystem": null,
+      "image": "7thsense/elasticsearch-ecs:latest",
+      "command": [
+        "/docker-entrypoint.sh",
+        "--discovery.type=ec2",
+        "--discovery.ec2.groups=sg-XXXXXXX"
+      ],
+      "user": null,
+      "dockerLabels": null,
+      "logConfiguration": null,
+      "cpu": 1024,
+      "privileged": null
+    }
+  ],
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/var/data/vol00"
+      },
+      "name": "vol00"
+    }
+  ],
+  "family": "elasticsearch"
+}
