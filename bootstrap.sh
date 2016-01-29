@@ -20,5 +20,7 @@ bin/plugin -i elasticsearch/elasticsearch-cloud-aws/2.7.1
 bin/plugin -i lmenezes/elasticsearch-kopf/1.0
 bin/plugin -i mobz/elasticsearch-head
 bin/plugin -i royrusso/elasticsearch-HQ/v1.0.0
+bin/plugin install license
+bin/plugin install marvel-agent
 
 
