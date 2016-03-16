@@ -18,8 +18,8 @@ fi
 
 # Drop root privileges if we are running elasticsearch
 if [ "$1" = 'elasticsearch' ]; then
-        # Change the ownership of /usr/share/elasticsearch/data to elasticsearch
-        chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
+    # Change the ownership of /usr/share/elasticsearch/data to elasticsearch
+    chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
 
 	if [[ "$AVAILABILITY_ZONE" == "" ]]; then
 		AVAILABILITY_ZONE=default
@@ -29,11 +29,11 @@ if [ "$1" = 'elasticsearch' ]; then
 	fi
 	set -- "$@" --network.publish_host=$PUBLISH_HOST --node.availability-zone=$AVAILABILITY_ZONE
 
-        exec gosu elasticsearch "$@"
-else 
+    exec gosu elasticsearch "$@"
+else
 	# As argument is not related to elasticsearch,
 	# then assume that user wants to run his own process,
 	# for example a `bash` shell to explore this image
 	exec "$@"
-fi 
+fi
 
