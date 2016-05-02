@@ -1,4 +1,6 @@
 # High index performance config from https://gist.github.com/jprante/10666960
+bootstrap.mlockall: true
+index.store.type: mmapfs
 index:
    codec:
      bloom:
