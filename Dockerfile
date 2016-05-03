@@ -5,11 +5,11 @@ ADD docker-entrypoint.sh /
 ADD bootstrap.sh /root/bootstrap.sh
 RUN /root/bootstrap.sh && rm /root/bootstrap.sh && chmod a+x /docker-entrypoint.sh
 
-ENV ELASTICSEARCH_MAJOR 1.7
-ENV ELASTICSEARCH_VERSION 1.7.4
+ENV ELASTICSEARCH_MAJOR 5.5
+ENV ELASTICSEARCH_VERSION 5.5.0
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
-COPY config /usr/share/elasticsearch/config
+#COPY config /usr/share/elasticsearch/config
 VOLUME /usr/share/elasticsearch/data
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

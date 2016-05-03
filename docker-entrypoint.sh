@@ -7,13 +7,15 @@ if [ "${1:0:1}" = '-' ]; then
         set -- elasticsearch "$@"
 fi
 
-export ES_USE_IPV4=true
+export ES_JAVA_OPTS=-Djava.net.preferIPv4Stack=true
 
 # ECS will report the docker interface without help, so we override that with host's private ip
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
-	AVAILABILITY_ZONE=`curl http://169.254.169.254/latest/meta-data/placement/availability-zone`
-	#PUBLISH_HOST=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
-	PUBLISH_HOST=_ec2:privateDns_
+	STARTUP_FLAGS=-Ecloud.node.auto_attributes: true\
+        -Ecluster.routing.allocation.awareness.attributes: aws_availability_zone
+else
+	STARTUP_FLAGS=-Ecloud.node.auto_attributes: true\
+        -Ecluster.routing.allocation.awareness.attributes: aws_availability_zone
 fi
 
 # Drop root privileges if we are running elasticsearch
@@ -21,14 +23,9 @@ if [ "$1" = 'elasticsearch' ]; then
     # Change the ownership of /usr/share/elasticsearch/data to elasticsearch
     chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
 
-	if [[ "$AVAILABILITY_ZONE" == "" ]]; then
-		AVAILABILITY_ZONE=default
-	fi
-	if [[ "$PUBLISH_HOST" == "" ]]; then
-		PUBLISH_HOST=_non_loopback:ipv4_
-	fi
-	set -- "$@" --network.publish_host=$PUBLISH_HOST --node.availability-zone=$AVAILABILITY_ZONE
-
+	set -- "$@" -Epath.conf=/etc/elasticsearch $STARTUP_FLAGS \
+		-Enetwork.host=_site_\
+		-Expack.security.enabled=false
     exec gosu elasticsearch "$@"
 else
 	# As argument is not related to elasticsearch,

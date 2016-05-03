@@ -6,6 +6,8 @@ security group id for your instances in the file where it says "sg-XXXXXXXX"
 and (optionally) make sure they have a suitably sized volume
 mounted at /var/data/vol00.
 
+You should also configure your ecs container to use "host" networking and expose ports 9200 and 9300.
+
 It is accessible via Docker Hub via `7thsense/elasticsearch-ecs:latest`
 
 Much of this was taken from from 
