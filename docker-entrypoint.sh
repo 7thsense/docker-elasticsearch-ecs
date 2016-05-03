@@ -27,7 +27,7 @@ if [ "$1" = 'elasticsearch' ]; then
 	if [[ "$PUBLISH_HOST" == "" ]]; then
 		PUBLISH_HOST=_non_loopback:ipv4_
 	fi
-	set -- "$@" --network.publish_host=$PUBLISH_HOST --node.availability-zone=$AVAILABILITY_ZONE
+	set -- "$@" --network.host=_site_ --network.publish_host=$PUBLISH_HOST --node.availability-zone=$AVAILABILITY_ZONE
 
     exec gosu elasticsearch "$@"
 else

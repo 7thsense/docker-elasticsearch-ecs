@@ -2,7 +2,7 @@
 
 rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch 
 
-rpm -ivh https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.4.noarch.rpm
+rpm -ivh https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.3.2/elasticsearch-2.3.2.rpm
 
 set -ex \
 	&& for path in \
@@ -16,13 +16,12 @@ set -ex \
 	done
 
 cd /usr/share/elasticsearch
-bin/plugin -i elasticsearch/elasticsearch-cloud-aws/2.7.1
-bin/plugin -i lmenezes/elasticsearch-kopf/1.0
-bin/plugin -i mobz/elasticsearch-head
-bin/plugin -i royrusso/elasticsearch-HQ/v1.0.0
-bin/plugin -i elasticsearch/marvel/latest
+bin/plugin install cloud-aws
+bin/plugin install lmenezes/elasticsearch-kopf
+bin/plugin install mobz/elasticsearch-head
+bin/plugin install royrusso/elasticsearch-HQ
 # for ES 2.0
-#bin/plugin install license
-#bin/plugin install marvel-agent
+bin/plugin install license
+bin/plugin install marvel-agent
 
 
