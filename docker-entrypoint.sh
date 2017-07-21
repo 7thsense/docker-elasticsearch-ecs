@@ -7,7 +7,7 @@ if [ "${1:0:1}" = '-' ]; then
         set -- elasticsearch "$@"
 fi
 
-export ES_USE_IPV4=true
+export ES_JAVA_OPTS=-Djava.net.preferIPv4Stack=true
 
 # ECS will report the docker interface without help, so we override that with host's private ip
 if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then

@@ -1,4 +1,4 @@
-IMAGE:="7thsense/elasticsearch-ecs:v5.0.0"
+IMAGE:="7thsense/elasticsearch-ecs:v5.0.0-1"
 LATEST:="7thsense/elasticsearch-ecs:latest"
 ELASTICSEARCH_PARAMS:=-p 0.0.0.0:9200:9200 -p 0.0.0.0:9300:9300 --volumes-from elasticsearch-data --env PUBLISH_HOST=192.168.102.105
 
