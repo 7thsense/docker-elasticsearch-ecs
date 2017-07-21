@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-
+yum install -y hostname
 rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch 
 
-rpm -ivh https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.3.2/elasticsearch-2.3.2.rpm
+rpm -ivh https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.0.rpm
 
 set -ex \
 	&& for path in \
@@ -16,12 +16,13 @@ set -ex \
 	done
 
 cd /usr/share/elasticsearch
-bin/plugin install cloud-aws
-bin/plugin install lmenezes/elasticsearch-kopf
-bin/plugin install mobz/elasticsearch-head
-bin/plugin install royrusso/elasticsearch-HQ
+bin/elasticsearch-plugin install discovery-ec2
+bin/elasticsearch-plugin install repository-s3
+#bin/elasticsearch-plugin install lmenezes/elasticsearch-kopf
+#bin/elasticsearch-plugin install mobz/elasticsearch-head
+#bin/elasticsearch-plugin install royrusso/elasticsearch-HQ
 # for ES 2.0
-bin/plugin install license
-bin/plugin install marvel-agent
+#bin/elasticsearch-plugin install license
+#bin/elasticsearch-plugin install marvel-agent
 
 
